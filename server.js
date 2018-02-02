@@ -30,4 +30,5 @@ app.get('/newfile', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/download.html'));  
 });
 
-//app.listen(5000, () => console.log("app running"));
+// download nodemon for node server
+app.listen(5000, () => console.log("app running"));
