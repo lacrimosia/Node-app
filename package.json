@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "html-pdf": "^2.2.0",
-    "location-href": "^1.0.0"
+    "location-href": "^1.0.0",
+    "lodash": "^4.17.5"
   }
 }

@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 var fs = require('fs');
 var pdf = require('html-pdf');
-var html = fs.readFileSync('./views/index.html', 'utf8');
+var html = fs.readFileSync('./views/index.html', 'utf-8');
 var options = {
     format: 'Letter',
     border: {
@@ -16,19 +16,33 @@ var options = {
 var location = require('location-href');
 location();
 
+var _ = require("lodash");
+
 
 app.use(express.static(path.join(__dirname, 'views')));
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/views/index.html')));
-app.get('/sub', (req, res) => res.sendFile(path.join(__dirname + '/views/sub.html')));
+app.get('/', (req, res) => res.send(path.join(__dirname + '/views/index.html')));
+app.get('/sub', (req, res) => res.send(path.join(__dirname + '/views/sub.html')));
 
 app.get('/newfile', (req, res) => {
     pdf.create(html, options).toFile('./file.pdf',(err, res) => {
         if (err) return console.log(err);
         console.log('File saved.', res);
     }); 
-    res.sendFile(path.join(__dirname + '/views/download.html'));  
+    res.send(__dirname + '/views/download.html');  
 });
 
+var a = [1,2,3,"copper",4,5];
+var changes = _.indexOf(a, "copper");
+console.log(setProfile({name: "Sia Termine", gender: "F", age: 21}));
+function setProfile(o){
+    o.name = o.name || null;
+    o.age = o.age >= 21 || null;
+    o.gender = o.gender || null;
+    return o;
+}
+//console.log(changes);
+
 // download nodemon for node server
-app.listen(5000, () => console.log("app running"));
+var port = 5000;
+app.listen(port, () => console.log("app running on port "+ port));
